@@ -117,9 +117,3 @@ class UserService:
         user = self.user_repository.update_password(id, password=new_password)
 
         return user
-        
-
-
-        
-
-        
