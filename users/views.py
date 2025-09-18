@@ -1,11 +1,9 @@
 from typing import Any, Dict, cast
-from uuid import UUID
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.exceptions import ValidationError
-
-from users.serializers import UserSerializer, PasswordUpdateSerializer, PasswordRecoverySerializer
+from django.utils import timezone
+from users.serializers import UserSerializer, PasswordUpdateSerializer, PasswordRecoverySerializer, ConfirmAccountSerializer
 
 from users.services.user_service import UserService
 from users.infra.userRepository import UserRepository
@@ -122,6 +120,7 @@ class PasswordController(APIView):
     def post(self, request):
         try:
             serializer = PasswordRecoverySerializer(data=request.data)
+
             if not serializer.is_valid():
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -144,6 +143,7 @@ class PasswordController(APIView):
     def put(self, request, id:str):
         try:
             serializer = PasswordUpdateSerializer(data=request.data)
+
             if not serializer.is_valid():
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -164,3 +164,31 @@ class PasswordController(APIView):
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({"error": "Internal server error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class ConfirmAccountView(APIView):
+
+    def __init__(self, **kwargs: Any) -> None:
+        super().__init__(**kwargs)
+        self.service = UserService(UserRepository())
+
+    def post(self, request):
+        serializer = ConfirmAccountSerializer(data=request.data)
+
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        validated_data = cast(Dict[str, Any], serializer.validated_data)
+
+        email = validated_data["email"]
+        code = validated_data["code"]
+
+        try:
+            user = self.service.confirm_user(email, code)
+
+            if user is None:
+                return Response({"error": "Usuário não encontrado 🚫"}, status=status.HTTP_404_NOT_FOUND)
+
+            return Response({"message": "Conta confirmada com sucesso 🎉"}, status=status.HTTP_200_OK)
+        
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

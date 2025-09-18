@@ -1,8 +1,13 @@
+from users.services.mail_service import send_email_changed_password, send_email_code_confirmation
 from typing import List, Optional
 from datetime import datetime
 from django.contrib.auth.hashers import make_password, check_password
 from users.domain.contracts.iuser_repository import IUserRepository
 from users.domain.entities.user_entity import UserEntity
+import random
+from datetime import timedelta
+from  django.utils import timezone
+
 
 class UserService:
     def __init__(self, user_repository:IUserRepository):
@@ -11,6 +16,7 @@ class UserService:
     def create_user(self, name: str, last_name: str, email: str, password: str):
         
         now = datetime.now()
+        code_confirmation = str(random.randint(100000, 999999))
 
         user_entity = UserEntity(
             id="",
@@ -19,7 +25,10 @@ class UserService:
             email=email,
             password=make_password(password),
             created_at=now,
-            updated_at=now
+            updated_at=now,
+            is_active=False,
+            confirmation_code=code_confirmation,
+            confirmation_expires_at=now + timedelta(minutes=10)
         )
         
         get_user_by_email = self.user_repository.get_by_email(email=email)
@@ -28,6 +37,13 @@ class UserService:
             raise ValueError("Já existe um usuário com esse email🚫")
         
         #Depois deve ser feito o envio de email para confirmar ao usuário o seu cadastro
+        send_email_code_confirmation(
+            assunto="🎉 Bem-vindo à Trendify Commerce!",
+            nome=name,
+            email_destino=email,
+            mensagem="Obrigado por se cadastrar! Aproveite todos os recursos da plataforma 🚀",
+            code=code_confirmation
+        )
         
         user = self.user_repository.create(user_entity)
 
@@ -71,7 +87,10 @@ class UserService:
                 email=email if email is not None else existing_user.email,
                 password=existing_user.password,
                 created_at=existing_user.created_at,
-                updated_at=now
+                updated_at=now,
+                is_active=existing_user.is_active,
+                confirmation_code=existing_user.confirmation_code,
+                confirmation_expires_at=existing_user.confirmation_expires_at
             )
 
             user = self.user_repository.update_user(user_entity)
@@ -89,9 +108,7 @@ class UserService:
         return user
     
     def recovery_user_password(self, email: str, password:str) -> UserEntity:
-        user_email = self.user_repository.get_by_email(email)
-
-        #Depois deve ser feito o envio de email com o código de verificação
+        user_email = self.user_repository.get_by_email(email=email)
 
         if not user_email:
             raise ValueError("Usário ou e-mail não encontrado⚠️")
@@ -99,6 +116,13 @@ class UserService:
         new_password = make_password(password)
 
         user = self.user_repository.recover_password(email=email, password=new_password)
+
+        send_email_changed_password(
+            assunto="🔑 Senha alterada com sucesso",
+            nome=user.name,
+            email_destino=user.email,
+            mensagem="Sua senha foi alterada recentemente. Se não foi você, entre em contato imediatamente."
+        )
 
         return user
     
@@ -112,9 +136,32 @@ class UserService:
             raise ValueError("Senha antiga incorreta🚫")
         
         hashed_password = make_password(new_password)
-        
-        #Enviar email ao usuário para notificar que a senha foi alterada
 
         user = self.user_repository.update_password(id, password=hashed_password)
 
+        send_email_changed_password(
+            assunto="🔑 Senha alterada com sucesso",
+            nome=user.name,
+            email_destino=user.email,
+            mensagem="Sua senha foi alterada recentemente. Se não foi você, entre em contato imediatamente."
+        )
+
         return user
+    
+    def confirm_user(self, email: str, code: str):
+        user = self.user_repository.get_by_email(email=email)
+
+        if not user:
+            raise ValueError("Usuário não encontrado 🚫")
+
+        if user.is_active:
+            raise ValueError("Usuário já está ativo ✅")
+
+        if user.confirmation_code != str(code):
+            raise ValueError("Código inválido 🚫")
+
+        if  user.confirmation_expires_at < timezone.now():
+            raise ValueError("Código expirado ⏰")
+
+        # Ativar conta e invalidar código
+        return self.user_repository.activate_user(email=user.email)

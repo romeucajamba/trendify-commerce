@@ -10,6 +10,9 @@ class User(models.Model):
    password = models.CharField(max_length=100, null=False, default="")
    created_at = models.DateTimeField(auto_now_add=True)
    updated_at = models.DateTimeField(auto_now=True)
+   is_active = models.BooleanField(default=False)
+   confirmation_code = models.CharField(max_length=6, null=True, blank=True)
+   confirmation_expires_at = models.DateTimeField(null=True, blank=True)
 
    def __str__(self):
       return f"{self.name} - {self.last_name} - {self.email} - {self.created_at} - {self.updated_at}"
