@@ -34,3 +34,7 @@ class IUserRepository(ABC):
     @abstractmethod
     def update_password(self, id:str, password: str) -> UserEntity:
         pass
+
+    @abstractmethod
+    def activate_user(self, email: str,) -> Optional[UserEntity]:
+        pass

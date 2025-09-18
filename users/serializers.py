@@ -33,3 +33,7 @@ class PasswordRecoverySerializer(serializers.Serializer):
         if data["password"] != data["confirm_password"]:
             raise serializers.ValidationError("As senhas não coincidem🚫")
         return data
+    
+class ConfirmAccountSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    code = serializers.CharField(max_length=6)
