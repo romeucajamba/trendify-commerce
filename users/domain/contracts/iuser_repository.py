@@ -1,8 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Optional, List
 from users.domain.entities.user_entity import UserEntity
-from uuid import UUID
-
 class IUserRepository(ABC):
 
     @abstractmethod
@@ -14,7 +12,7 @@ class IUserRepository(ABC):
         pass
     
     @abstractmethod
-    def get_by_id(self, id:UUID) -> UserEntity | None:
+    def get_by_id(self, id:str) -> UserEntity | None:
         pass
 
     @abstractmethod
@@ -26,7 +24,7 @@ class IUserRepository(ABC):
         pass
 
     @abstractmethod
-    def delete_user(self, id:UUID) -> None:
+    def delete_user(self, id:str) -> None:
         pass
 
     @abstractmethod
@@ -34,5 +32,5 @@ class IUserRepository(ABC):
         pass
 
     @abstractmethod
-    def update_password(self, id: UUID, password: str) -> UserEntity:
+    def update_password(self, id:str, password: str) -> UserEntity:
         pass

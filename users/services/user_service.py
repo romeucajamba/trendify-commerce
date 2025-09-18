@@ -1,5 +1,4 @@
 from typing import List, Optional
-from uuid import UUID
 from datetime import datetime
 from django.contrib.auth.hashers import make_password, check_password
 from users.domain.contracts.iuser_repository import IUserRepository
@@ -34,7 +33,7 @@ class UserService:
 
         return user
     
-    def get_user_by_id(self, id: UUID)-> Optional[UserEntity]:
+    def get_user_by_id(self, id: str)-> Optional[UserEntity]:
         user = self.user_repository.get_by_id(id=id)
 
         if not user:
@@ -52,7 +51,7 @@ class UserService:
     
     def update_user_data(
             self,
-            id: UUID, 
+            id: str, 
             name:Optional[str] = None, 
             last_name: Optional[str] = None, 
             email: Optional[str] = None, 
@@ -79,7 +78,7 @@ class UserService:
 
             return user
     
-    def delete_user_by_id(self, id: UUID):
+    def delete_user_by_id(self, id: str):
         get_user_id = self.user_repository.get_by_id(id)
 
         if not get_user_id:
@@ -103,7 +102,7 @@ class UserService:
 
         return user
     
-    def update_user_passsword(self, id:UUID, old_password:str, new_password: str) -> UserEntity:
+    def update_user_password(self, id:str, old_password:str, new_password: str) -> UserEntity:
         user_id = self.user_repository.get_by_id(id)
 
         if not user_id:
@@ -112,8 +111,10 @@ class UserService:
         if not check_password(old_password, user_id.password):
             raise ValueError("Senha antiga incorreta🚫")
         
+        hashed_password = make_password(new_password)
+        
         #Enviar email ao usuário para notificar que a senha foi alterada
 
-        user = self.user_repository.update_password(id, password=new_password)
+        user = self.user_repository.update_password(id, password=hashed_password)
 
         return user

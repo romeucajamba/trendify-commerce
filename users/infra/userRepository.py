@@ -2,7 +2,6 @@ from users.domain.entities.user_entity import UserEntity
 from users.domain.contracts.iuser_repository import IUserRepository
 from users.models import User
 from typing import Optional, List
-from uuid import UUID
 
 class UserRepository(IUserRepository):
 
@@ -39,7 +38,7 @@ class UserRepository(IUserRepository):
             updated_at=users.updated_at
         )
     
-    def get_by_id(self, id:UUID) -> UserEntity | None:
+    def get_by_id(self, id:str) -> UserEntity | None:
         users = User.objects.filter(id=id).first()
 
         if not users:
@@ -92,7 +91,7 @@ class UserRepository(IUserRepository):
             updated_at=db_user.updated_at
         )
 
-    def delete_user(self, id:UUID) -> None:
+    def delete_user(self, id:str) -> None:
         
         user = User.objects.get(id=id)
         user.delete()
@@ -116,9 +115,9 @@ class UserRepository(IUserRepository):
             updated_at=user.updated_at
         )
     
-    def update_password(self, id:UUID, password: str) -> Optional[UserEntity]:
+    def update_password(self, id:str, password: str) -> Optional[UserEntity]:
         try:
-            user = User.objects.get(id)
+            user = User.objects.get(id=id)
         except User.DoesNotExist:
             return None
         
