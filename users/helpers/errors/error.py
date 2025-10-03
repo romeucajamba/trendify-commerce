@@ -42,7 +42,8 @@ class ConflictError(AppError):
     status_code = 409
     code = "conflict"
 
-
+#Quando a entrada é sintaticamente correta, mas não passa regras de negócio.
+#senha nova igual à antiga, código de confirmação expirado.
 class ValidationError(AppError):
     status_code = 422
     code = "validation_error"
