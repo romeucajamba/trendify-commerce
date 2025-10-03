@@ -13,6 +13,10 @@ class UserSerializer(serializers.Serializer):
             raise serializers.ValidationError({"password": "As senhas não coincidem 🚫"})
         return data
     
+class UserUpadateDataSerializer(serializers.Serializer):
+    name = serializers.CharField(max_length=100)
+    last_name = serializers.CharField(max_length=100)
+    email = serializers.EmailField()
 
 class PasswordUpdateSerializer(serializers.Serializer):
     old_password = serializers.CharField(write_only=True)
