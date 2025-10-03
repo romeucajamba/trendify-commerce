@@ -1,6 +1,4 @@
-# core/errors.py
 from typing import Any, Optional
-
 
 class AppError(Exception):
     """Base error for app-level exceptions. Contains HTTP status and safe message."""

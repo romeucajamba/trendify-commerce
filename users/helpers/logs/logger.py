@@ -1,4 +1,3 @@
-# core/logger.py
 from loguru import logger
 import sys
 from pathlib import Path
