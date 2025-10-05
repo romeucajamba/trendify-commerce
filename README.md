@@ -192,8 +192,6 @@ python manage.py runserver
 ---
 
 ## ✅ Próximos Passos
-
-* [ ] Autenticação com JWT
 * [ ] Implementar `favorites`, `clothes`, `cart`
 * [ ] Testes unitários
 * [ ] CI/CD (GitHub Actions)

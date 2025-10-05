@@ -31,6 +31,15 @@ DEBUG = os.getenv('DJANGO_DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "").split(",")
 
+##JWT envs
+
+JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
+JWT_ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
+JWT_EXP_SECONDS = int(os.getenv("JWT_EXP_SECONDS", 604800))
+JWT_COOKIE_NAME = os.getenv("JWT_COOKIE_NAME", "access_token")
+JWT_COOKIE_SECURE = os.getenv("JWT_COOKIE_SECURE", "False") == "True"
+JWT_COOKIE_SAMESITE = os.getenv("JWT_COOKIE_SAMESITE", "Lax")
+JWT_ISSUER = os.getenv("JWT_ISSUER", "trendify-e-commerce")
 
 
 # Application definition

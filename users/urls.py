@@ -1,20 +1,24 @@
 from django.urls import path
-from .views import UserController, PasswordController, ConfirmAccountView, SpecificUserController
+from .views import LoginView, ConfirmAccountView, PasswordView, SpecificUserView, UserView, LogoutView
 
-user_controller = UserController()
-passwordController = PasswordController()
+user_controller = UserView()
+passwordController = PasswordView()
 confirm_account = ConfirmAccountView()
-user_id_controller = SpecificUserController()
+user_id_controller = SpecificUserView()
+user_login_controller = LoginView()
+user_logout_controller = LogoutView()
 
 urlpatterns = [
-    path("register/", user_controller.as_view()),#post
-    path("users/", user_controller.as_view()),#get
-    path("users/<uuid:id>/", user_id_controller.as_view()),#get by id
-    path("users/<uuid:id>/update/", user_controller.as_view()),#put
-    path("users/<uuid:id>/delete/", user_controller.as_view()),#delte
+    path("login/", user_login_controller.as_view(), name="login"),#post
+    path("logout/", user_logout_controller.as_view(), name="logout"),#post
+    path("register/", user_controller.as_view(), name="create-account"),#post
+    path("users/", user_controller.as_view(), name="get all users"),#get
+    path("users/<uuid:id>/", user_id_controller.as_view(), name="get-user"),#get by id
+    path("users/<uuid:id>/update/", user_controller.as_view(), name="update-user-data"),#put
+    path("users/<uuid:id>/delete/", user_controller.as_view(), name="delete-account"),#delte
     
-    path("users/recovery-password/", passwordController.as_view()),
-    path("users/<uuid:id>/update-password/", passwordController.as_view()),
+    path("users/recovery-password/", passwordController.as_view(), name="recovery-password"),
+    path("users/<uuid:id>/update-password/", passwordController.as_view(), name="update-password"),
 
     path("users/confirm-account/", ConfirmAccountView.as_view(), name="confirm-account"),
 ]
