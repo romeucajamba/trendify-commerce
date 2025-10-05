@@ -35,7 +35,7 @@ ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "").split(",")
 
 JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 JWT_ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
-JWT_EXP_SECONDS = os.getenv("JWT_EXP_SECONDS", "3600")
+JWT_EXP_SECONDS = int(os.getenv("JWT_EXP_SECONDS", 604800))
 JWT_COOKIE_NAME = os.getenv("JWT_COOKIE_NAME", "access_token")
 JWT_COOKIE_SECURE = os.getenv("JWT_COOKIE_SECURE", "False") == "True"
 JWT_COOKIE_SAMESITE = os.getenv("JWT_COOKIE_SAMESITE", "Lax")

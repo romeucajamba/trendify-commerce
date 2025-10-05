@@ -3,12 +3,70 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from users.serializers import UserSerializer, PasswordUpdateSerializer, PasswordRecoverySerializer, ConfirmAccountSerializer, UserUpadateDataSerializer
+from users.helpers.logs.logger import logger
 from users.helpers.errors.error import BadRequestError, ConflictError, NotFoundError, UnauthorizedError, DatabaseError,AppError
-
+from django.conf import settings
 from users.services.user_service import UserService
+from users.services.auth_service import AuthService
 from users.infra.userRepository import UserRepository
 
-class UserController(APIView):
+class LoginView(APIView):
+    def __init__(self, **kwargs: Any):
+        super().__init__(**kwargs)
+        self.auth_service = AuthService(UserRepository())
+
+    def post(self, request):
+        data = request.data
+        email = data.get("email")
+        password = data.get("password")
+
+        if not email or not password:
+            raise BadRequestError(safe_message="E-mail and password are required", status_code=400, code="bad_request")
+        
+        user = self.auth_service.autheticate(email=email, password=password)
+
+        if not user:
+            raise UnauthorizedError(safe_message="Invalid credentials", status_code=401, code="unathorized")
+        
+        token = self.auth_service.create_access_token(user.id)
+
+        #define cookie HttOnly + returna token
+        response = Response({
+            "access_token": token,
+            "token_type": "bearer",
+            "user": UserSerializer(user.__dict__).data
+        }, status=status.HTTP_202_ACCEPTED)
+
+        cookie_name = getattr(settings, "JWT_COOKIE_NAME", "access_token")
+
+        response.set_cookie(
+            cookie_name,
+            token,
+            httponly=True,
+            secure=getattr(settings, "JWT_COOKIE_SECURE", False),
+            samesite=getattr(settings, "JWT_COOKIE_SAMESITE", "Lax"),
+            max_age=getattr(settings, "JWT_EXP_SECONDS", 3600)
+        )
+
+        logger.info("User logged in: {}", user.email)
+
+        return response
+    
+class LogoutView(APIView):
+    def post(self, request):
+        #AO fazer o loggout ele limpa os cookie
+        response = Response({"message": "Logged out"}, status=status.HTTP_200_OK)
+
+        cookie_name = getattr(settings, "JWT_COOKIE_NAME", "access_token")
+
+        response.delete_cookie(cookie_name)
+
+        return response
+
+
+
+
+class UserView(APIView):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self.service = UserService(UserRepository())
@@ -114,7 +172,7 @@ class UserController(APIView):
         except Exception as e:
             raise DatabaseError(safe_message="Something went wrong on our side, please try again later, and if it persists, contact us", status_code=500, code="internal_server_error")
 
-class SpecificUserController(APIView):
+class SpecificUserView(APIView):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self.service = UserService(UserRepository())
@@ -144,7 +202,7 @@ class SpecificUserController(APIView):
         except Exception as e:
             raise DatabaseError(safe_message="Something went wrong on our side, please try again later, and if it persists, contact us", status_code=500, code="internal_server_error")
 
-class PasswordController(APIView):
+class PasswordView(APIView):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self.service = UserService(UserRepository())
