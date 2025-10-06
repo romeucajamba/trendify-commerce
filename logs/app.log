@@ -468,3 +468,23 @@ Traceback (most recent call last):
 TypeError: unsupported type for timedelta seconds component: str
 2025-10-05 14:39:08.089 | INFO     | users.views:post:51 - User logged in: romeucajamba@gmail.com
 2025-10-05 14:41:40.804 | INFO     | users.views:post:51 - User logged in: romeucajamba@gmail.com
+2025-10-06 01:27:06.247 | WARNING  | users.middleware.auth_middleware:process_request:41 - Token expired, please make login
+2025-10-06 01:27:06.256 | WARNING  | users.helpers.errors.global_handler_error:process_exception:17 - Handled AppError: unauthorized Autentication required {'extra': None, 'path': '/api/v1/users/'}
+2025-10-06 01:27:55.571 | WARNING  | users.middleware.auth_middleware:process_request:41 - Token expired, please make login
+2025-10-06 01:27:56.990 | INFO     | users.views:post:57 - User logged in: romeucajamba@gmail.com
+2025-10-06 01:28:13.791 | WARNING  | users.middleware.auth_middleware:process_request:41 - Token expired, please make login
+2025-10-06 01:28:13.792 | WARNING  | users.helpers.errors.global_handler_error:process_exception:17 - Handled AppError: unauthorized Autentication required {'extra': None, 'path': '/api/v1/users/'}
+2025-10-06 01:28:20.891 | WARNING  | users.middleware.auth_middleware:process_request:41 - Token expired, please make login
+2025-10-06 01:28:20.892 | WARNING  | users.helpers.errors.global_handler_error:process_exception:17 - Handled AppError: unauthorized Autentication required {'extra': None, 'path': '/api/v1/users/'}
+2025-10-06 01:35:33.264 | WARNING  | users.middleware.auth_middleware:process_request:46 - Token expired, please do the login
+2025-10-06 01:35:33.275 | WARNING  | users.helpers.errors.global_handler_error:process_exception:17 - Handled AppError: unauthorized Autentication required {'extra': None, 'path': '/api/v1/users/'}
+2025-10-06 01:35:34.770 | WARNING  | users.middleware.auth_middleware:process_request:46 - Token expired, please do the login
+2025-10-06 01:35:34.772 | WARNING  | users.helpers.errors.global_handler_error:process_exception:17 - Handled AppError: unauthorized Autentication required {'extra': None, 'path': '/api/v1/users/'}
+2025-10-06 01:35:49.151 | WARNING  | users.middleware.auth_middleware:process_request:46 - Token expired, please do the login
+2025-10-06 01:35:50.475 | INFO     | users.views:post:57 - User logged in: romeucajamba@gmail.com
+2025-10-06 01:36:02.002 | WARNING  | users.middleware.auth_middleware:process_request:46 - Token expired, please do the login
+2025-10-06 01:36:02.003 | WARNING  | users.helpers.errors.global_handler_error:process_exception:17 - Handled AppError: unauthorized Autentication required {'extra': None, 'path': '/api/v1/users/'}
+2025-10-06 01:36:34.083 | WARNING  | users.middleware.auth_middleware:process_request:46 - Token expired, please do the login
+2025-10-06 01:36:35.389 | INFO     | users.views:post:57 - User logged in: romeucajamba@gmail.com
+2025-10-06 01:37:08.948 | WARNING  | users.middleware.auth_middleware:process_request:51 - Ivalid token: The token is not yet valid (iat)
+2025-10-06 01:37:08.950 | WARNING  | users.helpers.errors.global_handler_error:process_exception:17 - Handled AppError: unauthorized Autentication required {'extra': None, 'path': '/api/v1/users/'}

@@ -33,12 +33,17 @@ class AuthMiddleware(MiddlewareMixin):
             payload = self.auth_service.decode_token(token=token)
             user_id = payload.get("sub")
             request.user_id = user_id
-            try: 
-                request.user = self.auth_service.user_repository.get_by_id(user_id)
-            except Exception:
+
+            if isinstance(user_id, str):
+                try: 
+                    request.user = self.auth_service.user_repository.get_by_id(user_id)
+                except Exception:
+                    request.user = None
+            else:
                 request.user = None
+                
         except ExpiredSignatureError:
-            logger.warning("Token expired, please make login")
+            logger.warning("Token expired, please do the login")
             request.user_id = None
             request.user = None
         
