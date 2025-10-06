@@ -22,7 +22,7 @@ class AuthService:
         return user
     
     def create_access_token(self, user_id: str) -> str:
-        now = datetime.now()
+        now = datetime.utcnow()
 
         payload: Dict[str, Any] = {
             "sub": str(user_id),

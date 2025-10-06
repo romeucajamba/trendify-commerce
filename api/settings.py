@@ -51,10 +51,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users'
+    'users',
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [
+    'users.middleware.auth_middleware.AuthMiddleware',
     'users.helpers.errors.global_handler_error.GlobalExceptionMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

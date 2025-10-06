@@ -467,3 +467,458 @@ Traceback (most recent call last):
 
 TypeError: unsupported type for timedelta seconds component: str
 2025-10-05 14:39:08.089 | INFO     | users.views:post:51 - User logged in: romeucajamba@gmail.com
+2025-10-05 14:41:40.804 | INFO     | users.views:post:51 - User logged in: romeucajamba@gmail.com
+2025-10-06 01:27:06.247 | WARNING  | users.middleware.auth_middleware:process_request:41 - Token expired, please make login
+2025-10-06 01:27:06.256 | WARNING  | users.helpers.errors.global_handler_error:process_exception:17 - Handled AppError: unauthorized Autentication required {'extra': None, 'path': '/api/v1/users/'}
+2025-10-06 01:27:55.571 | WARNING  | users.middleware.auth_middleware:process_request:41 - Token expired, please make login
+2025-10-06 01:27:56.990 | INFO     | users.views:post:57 - User logged in: romeucajamba@gmail.com
+2025-10-06 01:28:13.791 | WARNING  | users.middleware.auth_middleware:process_request:41 - Token expired, please make login
+2025-10-06 01:28:13.792 | WARNING  | users.helpers.errors.global_handler_error:process_exception:17 - Handled AppError: unauthorized Autentication required {'extra': None, 'path': '/api/v1/users/'}
+2025-10-06 01:28:20.891 | WARNING  | users.middleware.auth_middleware:process_request:41 - Token expired, please make login
+2025-10-06 01:28:20.892 | WARNING  | users.helpers.errors.global_handler_error:process_exception:17 - Handled AppError: unauthorized Autentication required {'extra': None, 'path': '/api/v1/users/'}
+2025-10-06 01:35:33.264 | WARNING  | users.middleware.auth_middleware:process_request:46 - Token expired, please do the login
+2025-10-06 01:35:33.275 | WARNING  | users.helpers.errors.global_handler_error:process_exception:17 - Handled AppError: unauthorized Autentication required {'extra': None, 'path': '/api/v1/users/'}
+2025-10-06 01:35:34.770 | WARNING  | users.middleware.auth_middleware:process_request:46 - Token expired, please do the login
+2025-10-06 01:35:34.772 | WARNING  | users.helpers.errors.global_handler_error:process_exception:17 - Handled AppError: unauthorized Autentication required {'extra': None, 'path': '/api/v1/users/'}
+2025-10-06 01:35:49.151 | WARNING  | users.middleware.auth_middleware:process_request:46 - Token expired, please do the login
+2025-10-06 01:35:50.475 | INFO     | users.views:post:57 - User logged in: romeucajamba@gmail.com
+2025-10-06 01:36:02.002 | WARNING  | users.middleware.auth_middleware:process_request:46 - Token expired, please do the login
+2025-10-06 01:36:02.003 | WARNING  | users.helpers.errors.global_handler_error:process_exception:17 - Handled AppError: unauthorized Autentication required {'extra': None, 'path': '/api/v1/users/'}
+2025-10-06 01:36:34.083 | WARNING  | users.middleware.auth_middleware:process_request:46 - Token expired, please do the login
+2025-10-06 01:36:35.389 | INFO     | users.views:post:57 - User logged in: romeucajamba@gmail.com
+2025-10-06 01:37:08.948 | WARNING  | users.middleware.auth_middleware:process_request:51 - Ivalid token: The token is not yet valid (iat)
+2025-10-06 01:37:08.950 | WARNING  | users.helpers.errors.global_handler_error:process_exception:17 - Handled AppError: unauthorized Autentication required {'extra': None, 'path': '/api/v1/users/'}
+2025-10-06 01:44:45.141 | WARNING  | users.middleware.auth_middleware:process_request:51 - Ivalid token: The token is not yet valid (iat)
+2025-10-06 01:44:46.562 | INFO     | users.views:post:57 - User logged in: romeucajamba@gmail.com
+2025-10-06 02:04:27.544 | ERROR    | users.helpers.errors.global_handler_error:process_exception:36 - Unhandled exception on request /swagger/: Traceback (most recent call last):
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\rest_framework\response.py", line 74, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\drf_yasg\renderers.py", line 93, in render
+    return render_to_string(
+        self.template, renderer_context, renderer_context["request"]
+    )
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: drf-yasg/swagger-ui.html
+
+Traceback (most recent call last):
+
+  File "C:\Python313\Lib\threading.py", line 1012, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x000001F5AB0A49A0>
+    └ <Thread(Thread-1 (process_request_thread), started daemon 5056)>
+  File "C:\Python313\Lib\threading.py", line 1041, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x000001F5AB0A4720>
+    └ <Thread(Thread-1 (process_request_thread), started daemon 5056)>
+  File "C:\Python313\Lib\threading.py", line 992, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-1 (process_request_thread), started daemon 5056)>
+    │    │        │    └ (<socket.socket fd=908, family=2, type=1, proto=0, laddr=('127.0.0.1', 8000), raddr=('127.0.0.1', 13522)>, ('127.0.0.1', 13522))
+    │    │        └ <Thread(Thread-1 (process_request_thread), started daemon 5056)>
+    │    └ <bound method ThreadingMixIn.process_request_thread of <django.core.servers.basehttp.WSGIServer object at 0x000001F5B00DF0E0>>
+    └ <Thread(Thread-1 (process_request_thread), started daemon 5056)>
+  File "C:\Python313\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    │    │              │        └ ('127.0.0.1', 13522)
+    │    │              └ <socket.socket fd=908, family=2, type=1, proto=0, laddr=('127.0.0.1', 8000), raddr=('127.0.0.1', 13522)>
+    │    └ <function BaseServer.finish_request at 0x000001F5AE468C20>
+    └ <django.core.servers.basehttp.WSGIServer object at 0x000001F5B00DF0E0>
+  File "C:\Python313\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    │    │                   │        │               └ <django.core.servers.basehttp.WSGIServer object at 0x000001F5B00DF0E0>
+    │    │                   │        └ ('127.0.0.1', 13522)
+    │    │                   └ <socket.socket fd=908, family=2, type=1, proto=0, laddr=('127.0.0.1', 8000), raddr=('127.0.0.1', 13522)>
+    │    └ <class 'django.core.servers.basehttp.WSGIRequestHandler'>
+    └ <django.core.servers.basehttp.WSGIServer object at 0x000001F5B00DF0E0>
+  File "C:\Python313\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    │    └ <function WSGIRequestHandler.handle at 0x000001F5AF9C2980>
+    └ <django.core.servers.basehttp.WSGIRequestHandler object at 0x000001F5B00DDD30>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\servers\basehttp.py", line 228, in handle
+    self.handle_one_request()
+    │    └ <function WSGIRequestHandler.handle_one_request at 0x000001F5AF9C2A20>
+    └ <django.core.servers.basehttp.WSGIRequestHandler object at 0x000001F5B00DDD30>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\servers\basehttp.py", line 253, in handle_one_request
+    handler.run(self.server.get_app())
+    │       │   │    │      └ <function WSGIServer.get_app at 0x000001F5AF9C1940>
+    │       │   │    └ <django.core.servers.basehttp.WSGIServer object at 0x000001F5B00DF0E0>
+    │       │   └ <django.core.servers.basehttp.WSGIRequestHandler object at 0x000001F5B00DDD30>
+    │       └ <function BaseHandler.run at 0x000001F5AF9B1120>
+    └ <django.core.servers.basehttp.ServerHandler object at 0x000001F5B00DEBA0>
+  File "C:\Python313\Lib\wsgiref\handlers.py", line 137, in run
+    self.result = application(self.environ, self.start_response)
+    │    │        │           │    │        │    └ <function BaseHandler.start_response at 0x000001F5AF9B14E0>
+    │    │        │           │    │        └ <django.core.servers.basehttp.ServerHandler object at 0x000001F5B00DEBA0>
+    │    │        │           │    └ {'ALLUSERSPROFILE': 'C:\\ProgramData', 'APPDATA': 'C:\\Users\\Romeu\\AppData\\Roaming', 'BUNDLED_DEBUGPY_PATH': 'c:\\Users\\R...
+    │    │        │           └ <django.core.servers.basehttp.ServerHandler object at 0x000001F5B00DEBA0>
+    │    │        └ <django.contrib.staticfiles.handlers.StaticFilesHandler object at 0x000001F5B00DF230>
+    │    └ None
+    └ <django.core.servers.basehttp.ServerHandler object at 0x000001F5B00DEBA0>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\contrib\staticfiles\handlers.py", line 80, in __call__
+    return self.application(environ, start_response)
+           │    │           │        └ <bound method BaseHandler.start_response of <django.core.servers.basehttp.ServerHandler object at 0x000001F5B00DEBA0>>
+           │    │           └ {'ALLUSERSPROFILE': 'C:\\ProgramData', 'APPDATA': 'C:\\Users\\Romeu\\AppData\\Roaming', 'BUNDLED_DEBUGPY_PATH': 'c:\\Users\\R...
+           │    └ <django.core.handlers.wsgi.WSGIHandler object at 0x000001F5AE423770>
+           └ <django.contrib.staticfiles.handlers.StaticFilesHandler object at 0x000001F5B00DF230>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\wsgi.py", line 124, in __call__
+    response = self.get_response(request)
+               │    │            └ <WSGIRequest: GET '/swagger/'>
+               │    └ <function BaseHandler.get_response at 0x000001F5AF922480>
+               └ <django.core.handlers.wsgi.WSGIHandler object at 0x000001F5AE423770>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\base.py", line 140, in get_response
+    response = self._middleware_chain(request)
+               │    │                 └ <WSGIRequest: GET '/swagger/'>
+               │    └ <function convert_exception_to_response.<locals>.inner at 0x000001F5B04C4400>
+               └ <django.core.handlers.wsgi.WSGIHandler object at 0x000001F5AE423770>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               │            └ <WSGIRequest: GET '/swagger/'>
+               └ <AuthMiddleware get_response=convert_exception_to_response.<locals>.inner>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\utils\deprecation.py", line 120, in __call__
+    response = response or self.get_response(request)
+               │           │    │            └ <WSGIRequest: GET '/swagger/'>
+               │           │    └ <function convert_exception_to_response.<locals>.inner at 0x000001F5AE504A40>
+               │           └ <AuthMiddleware get_response=convert_exception_to_response.<locals>.inner>
+               └ None
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               │            └ <WSGIRequest: GET '/swagger/'>
+               └ <GlobalExceptionMiddleware get_response=convert_exception_to_response.<locals>.inner>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\utils\deprecation.py", line 120, in __call__
+    response = response or self.get_response(request)
+               │           │    │            └ <WSGIRequest: GET '/swagger/'>
+               │           │    └ <function convert_exception_to_response.<locals>.inner at 0x000001F5AE504AE0>
+               │           └ <GlobalExceptionMiddleware get_response=convert_exception_to_response.<locals>.inner>
+               └ None
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               │            └ <WSGIRequest: GET '/swagger/'>
+               └ <SecurityMiddleware get_response=convert_exception_to_response.<locals>.inner>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\utils\deprecation.py", line 120, in __call__
+    response = response or self.get_response(request)
+               │           │    │            └ <WSGIRequest: GET '/swagger/'>
+               │           │    └ <function convert_exception_to_response.<locals>.inner at 0x000001F5AE504D60>
+               │           └ <SecurityMiddleware get_response=convert_exception_to_response.<locals>.inner>
+               └ None
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               │            └ <WSGIRequest: GET '/swagger/'>
+               └ <SessionMiddleware get_response=convert_exception_to_response.<locals>.inner>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\utils\deprecation.py", line 120, in __call__
+    response = response or self.get_response(request)
+               │           │    │            └ <WSGIRequest: GET '/swagger/'>
+               │           │    └ <function convert_exception_to_response.<locals>.inner at 0x000001F5AE504E00>
+               │           └ <SessionMiddleware get_response=convert_exception_to_response.<locals>.inner>
+               └ None
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               │            └ <WSGIRequest: GET '/swagger/'>
+               └ <CommonMiddleware get_response=convert_exception_to_response.<locals>.inner>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\utils\deprecation.py", line 120, in __call__
+    response = response or self.get_response(request)
+               │           │    │            └ <WSGIRequest: GET '/swagger/'>
+               │           │    └ <function convert_exception_to_response.<locals>.inner at 0x000001F5AE504EA0>
+               │           └ <CommonMiddleware get_response=convert_exception_to_response.<locals>.inner>
+               └ None
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               │            └ <WSGIRequest: GET '/swagger/'>
+               └ <CsrfViewMiddleware get_response=convert_exception_to_response.<locals>.inner>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\utils\deprecation.py", line 120, in __call__
+    response = response or self.get_response(request)
+               │           │    │            └ <WSGIRequest: GET '/swagger/'>
+               │           │    └ <function convert_exception_to_response.<locals>.inner at 0x000001F5AE504F40>
+               │           └ <CsrfViewMiddleware get_response=convert_exception_to_response.<locals>.inner>
+               └ None
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               │            └ <WSGIRequest: GET '/swagger/'>
+               └ <AuthenticationMiddleware get_response=convert_exception_to_response.<locals>.inner>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\utils\deprecation.py", line 120, in __call__
+    response = response or self.get_response(request)
+               │           │    │            └ <WSGIRequest: GET '/swagger/'>
+               │           │    └ <function convert_exception_to_response.<locals>.inner at 0x000001F5AE504FE0>
+               │           └ <AuthenticationMiddleware get_response=convert_exception_to_response.<locals>.inner>
+               └ None
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               │            └ <WSGIRequest: GET '/swagger/'>
+               └ <MessageMiddleware get_response=convert_exception_to_response.<locals>.inner>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\utils\deprecation.py", line 120, in __call__
+    response = response or self.get_response(request)
+               │           │    │            └ <WSGIRequest: GET '/swagger/'>
+               │           │    └ <function convert_exception_to_response.<locals>.inner at 0x000001F5AE505080>
+               │           └ <MessageMiddleware get_response=convert_exception_to_response.<locals>.inner>
+               └ None
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               │            └ <WSGIRequest: GET '/swagger/'>
+               └ <XFrameOptionsMiddleware get_response=BaseHandler._get_response>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\utils\deprecation.py", line 120, in __call__
+    response = response or self.get_response(request)
+               │           │    │            └ <WSGIRequest: GET '/swagger/'>
+               │           │    └ <function BaseHandler._get_response at 0x000001F5AE504680>
+               │           └ <XFrameOptionsMiddleware get_response=BaseHandler._get_response>
+               └ None
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               │            └ <WSGIRequest: GET '/swagger/'>
+               └ <bound method BaseHandler._get_response of <django.core.handlers.wsgi.WSGIHandler object at 0x000001F5AE423770>>
+> File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               │        └ <function SimpleTemplateResponse.render at 0x000001F5AE5058A0>
+               └ <Response status_code=200, "text/html; charset=utf-8">
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+    │    │         │    └ <property object at 0x000001F5AFB63CE0>
+    │    │         └ <Response status_code=200, "text/html; charset=utf-8">
+    │    └ <property object at 0x000001F5AE500EF0>
+    └ <Response status_code=200, "text/html; charset=utf-8">
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\rest_framework\response.py", line 74, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+          │        │      │    │     │                    └ {'view': <drf_yasg.views.get_schema_view.<locals>.SchemaView object at 0x000001F5B0134AD0>, 'args': (), 'kwargs': {}, 'reques...
+          │        │      │    │     └ 'text/html'
+          │        │      │    └ Swagger({'swagger': '2.0', 'info': Info({'title': 'Trendify E-commerce API', 'description': 'Documentação da API do E-commerc...
+          │        │      └ <Response status_code=200, "text/html; charset=utf-8">
+          │        └ <function _UIRenderer.render at 0x000001F5AFDF96C0>
+          └ <drf_yasg.renderers.SwaggerUIRenderer object at 0x000001F5B0135940>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\drf_yasg\renderers.py", line 93, in render
+    return render_to_string(
+           └ <function render_to_string at 0x000001F5AE0F2AC0>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               │            │                    └ None
+               │            └ 'drf-yasg/swagger-ui.html'
+               └ <function get_template at 0x000001F5AE0F0F40>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+          │                    │                    └ [TemplateDoesNotExist('drf-yasg/swagger-ui.html')]
+          │                    └ 'drf-yasg/swagger-ui.html'
+          └ <class 'django.template.exceptions.TemplateDoesNotExist'>
+
+django.template.exceptions.TemplateDoesNotExist: drf-yasg/swagger-ui.html
+2025-10-06 02:05:19.506 | ERROR    | users.helpers.errors.global_handler_error:process_exception:36 - Unhandled exception on request /redoc/: Traceback (most recent call last):
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\rest_framework\response.py", line 74, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\drf_yasg\renderers.py", line 93, in render
+    return render_to_string(
+        self.template, renderer_context, renderer_context["request"]
+    )
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: drf-yasg/redoc.html
+
+Traceback (most recent call last):
+
+  File "C:\Python313\Lib\threading.py", line 1012, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x000001F5AB0A49A0>
+    └ <Thread(Thread-1 (process_request_thread), started daemon 5056)>
+  File "C:\Python313\Lib\threading.py", line 1041, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x000001F5AB0A4720>
+    └ <Thread(Thread-1 (process_request_thread), started daemon 5056)>
+  File "C:\Python313\Lib\threading.py", line 992, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(Thread-1 (process_request_thread), started daemon 5056)>
+    │    │        │    └ (<socket.socket fd=908, family=2, type=1, proto=0, laddr=('127.0.0.1', 8000), raddr=('127.0.0.1', 13522)>, ('127.0.0.1', 13522))
+    │    │        └ <Thread(Thread-1 (process_request_thread), started daemon 5056)>
+    │    └ <bound method ThreadingMixIn.process_request_thread of <django.core.servers.basehttp.WSGIServer object at 0x000001F5B00DF0E0>>
+    └ <Thread(Thread-1 (process_request_thread), started daemon 5056)>
+  File "C:\Python313\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    │    │              │        └ ('127.0.0.1', 13522)
+    │    │              └ <socket.socket fd=908, family=2, type=1, proto=0, laddr=('127.0.0.1', 8000), raddr=('127.0.0.1', 13522)>
+    │    └ <function BaseServer.finish_request at 0x000001F5AE468C20>
+    └ <django.core.servers.basehttp.WSGIServer object at 0x000001F5B00DF0E0>
+  File "C:\Python313\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+    │    │                   │        │               └ <django.core.servers.basehttp.WSGIServer object at 0x000001F5B00DF0E0>
+    │    │                   │        └ ('127.0.0.1', 13522)
+    │    │                   └ <socket.socket fd=908, family=2, type=1, proto=0, laddr=('127.0.0.1', 8000), raddr=('127.0.0.1', 13522)>
+    │    └ <class 'django.core.servers.basehttp.WSGIRequestHandler'>
+    └ <django.core.servers.basehttp.WSGIServer object at 0x000001F5B00DF0E0>
+  File "C:\Python313\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    │    └ <function WSGIRequestHandler.handle at 0x000001F5AF9C2980>
+    └ <django.core.servers.basehttp.WSGIRequestHandler object at 0x000001F5B00DDD30>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\servers\basehttp.py", line 230, in handle
+    self.handle_one_request()
+    │    └ <function WSGIRequestHandler.handle_one_request at 0x000001F5AF9C2A20>
+    └ <django.core.servers.basehttp.WSGIRequestHandler object at 0x000001F5B00DDD30>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\servers\basehttp.py", line 253, in handle_one_request
+    handler.run(self.server.get_app())
+    │       │   │    │      └ <function WSGIServer.get_app at 0x000001F5AF9C1940>
+    │       │   │    └ <django.core.servers.basehttp.WSGIServer object at 0x000001F5B00DF0E0>
+    │       │   └ <django.core.servers.basehttp.WSGIRequestHandler object at 0x000001F5B00DDD30>
+    │       └ <function BaseHandler.run at 0x000001F5AF9B1120>
+    └ <django.core.servers.basehttp.ServerHandler object at 0x000001F5B04CD1D0>
+  File "C:\Python313\Lib\wsgiref\handlers.py", line 137, in run
+    self.result = application(self.environ, self.start_response)
+    │    │        │           │    │        │    └ <function BaseHandler.start_response at 0x000001F5AF9B14E0>
+    │    │        │           │    │        └ <django.core.servers.basehttp.ServerHandler object at 0x000001F5B04CD1D0>
+    │    │        │           │    └ {'ALLUSERSPROFILE': 'C:\\ProgramData', 'APPDATA': 'C:\\Users\\Romeu\\AppData\\Roaming', 'BUNDLED_DEBUGPY_PATH': 'c:\\Users\\R...
+    │    │        │           └ <django.core.servers.basehttp.ServerHandler object at 0x000001F5B04CD1D0>
+    │    │        └ <django.contrib.staticfiles.handlers.StaticFilesHandler object at 0x000001F5B00DF230>
+    │    └ None
+    └ <django.core.servers.basehttp.ServerHandler object at 0x000001F5B04CD1D0>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\contrib\staticfiles\handlers.py", line 80, in __call__
+    return self.application(environ, start_response)
+           │    │           │        └ <bound method BaseHandler.start_response of <django.core.servers.basehttp.ServerHandler object at 0x000001F5B04CD1D0>>
+           │    │           └ {'ALLUSERSPROFILE': 'C:\\ProgramData', 'APPDATA': 'C:\\Users\\Romeu\\AppData\\Roaming', 'BUNDLED_DEBUGPY_PATH': 'c:\\Users\\R...
+           │    └ <django.core.handlers.wsgi.WSGIHandler object at 0x000001F5AE423770>
+           └ <django.contrib.staticfiles.handlers.StaticFilesHandler object at 0x000001F5B00DF230>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\wsgi.py", line 124, in __call__
+    response = self.get_response(request)
+               │    │            └ <WSGIRequest: GET '/redoc/'>
+               │    └ <function BaseHandler.get_response at 0x000001F5AF922480>
+               └ <django.core.handlers.wsgi.WSGIHandler object at 0x000001F5AE423770>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\base.py", line 140, in get_response
+    response = self._middleware_chain(request)
+               │    │                 └ <WSGIRequest: GET '/redoc/'>
+               │    └ <function convert_exception_to_response.<locals>.inner at 0x000001F5B04C4400>
+               └ <django.core.handlers.wsgi.WSGIHandler object at 0x000001F5AE423770>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               │            └ <WSGIRequest: GET '/redoc/'>
+               └ <AuthMiddleware get_response=convert_exception_to_response.<locals>.inner>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\utils\deprecation.py", line 120, in __call__
+    response = response or self.get_response(request)
+               │           │    │            └ <WSGIRequest: GET '/redoc/'>
+               │           │    └ <function convert_exception_to_response.<locals>.inner at 0x000001F5AE504A40>
+               │           └ <AuthMiddleware get_response=convert_exception_to_response.<locals>.inner>
+               └ None
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               │            └ <WSGIRequest: GET '/redoc/'>
+               └ <GlobalExceptionMiddleware get_response=convert_exception_to_response.<locals>.inner>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\utils\deprecation.py", line 120, in __call__
+    response = response or self.get_response(request)
+               │           │    │            └ <WSGIRequest: GET '/redoc/'>
+               │           │    └ <function convert_exception_to_response.<locals>.inner at 0x000001F5AE504AE0>
+               │           └ <GlobalExceptionMiddleware get_response=convert_exception_to_response.<locals>.inner>
+               └ None
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               │            └ <WSGIRequest: GET '/redoc/'>
+               └ <SecurityMiddleware get_response=convert_exception_to_response.<locals>.inner>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\utils\deprecation.py", line 120, in __call__
+    response = response or self.get_response(request)
+               │           │    │            └ <WSGIRequest: GET '/redoc/'>
+               │           │    └ <function convert_exception_to_response.<locals>.inner at 0x000001F5AE504D60>
+               │           └ <SecurityMiddleware get_response=convert_exception_to_response.<locals>.inner>
+               └ None
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               │            └ <WSGIRequest: GET '/redoc/'>
+               └ <SessionMiddleware get_response=convert_exception_to_response.<locals>.inner>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\utils\deprecation.py", line 120, in __call__
+    response = response or self.get_response(request)
+               │           │    │            └ <WSGIRequest: GET '/redoc/'>
+               │           │    └ <function convert_exception_to_response.<locals>.inner at 0x000001F5AE504E00>
+               │           └ <SessionMiddleware get_response=convert_exception_to_response.<locals>.inner>
+               └ None
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               │            └ <WSGIRequest: GET '/redoc/'>
+               └ <CommonMiddleware get_response=convert_exception_to_response.<locals>.inner>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\utils\deprecation.py", line 120, in __call__
+    response = response or self.get_response(request)
+               │           │    │            └ <WSGIRequest: GET '/redoc/'>
+               │           │    └ <function convert_exception_to_response.<locals>.inner at 0x000001F5AE504EA0>
+               │           └ <CommonMiddleware get_response=convert_exception_to_response.<locals>.inner>
+               └ None
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               │            └ <WSGIRequest: GET '/redoc/'>
+               └ <CsrfViewMiddleware get_response=convert_exception_to_response.<locals>.inner>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\utils\deprecation.py", line 120, in __call__
+    response = response or self.get_response(request)
+               │           │    │            └ <WSGIRequest: GET '/redoc/'>
+               │           │    └ <function convert_exception_to_response.<locals>.inner at 0x000001F5AE504F40>
+               │           └ <CsrfViewMiddleware get_response=convert_exception_to_response.<locals>.inner>
+               └ None
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               │            └ <WSGIRequest: GET '/redoc/'>
+               └ <AuthenticationMiddleware get_response=convert_exception_to_response.<locals>.inner>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\utils\deprecation.py", line 120, in __call__
+    response = response or self.get_response(request)
+               │           │    │            └ <WSGIRequest: GET '/redoc/'>
+               │           │    └ <function convert_exception_to_response.<locals>.inner at 0x000001F5AE504FE0>
+               │           └ <AuthenticationMiddleware get_response=convert_exception_to_response.<locals>.inner>
+               └ None
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               │            └ <WSGIRequest: GET '/redoc/'>
+               └ <MessageMiddleware get_response=convert_exception_to_response.<locals>.inner>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\utils\deprecation.py", line 120, in __call__
+    response = response or self.get_response(request)
+               │           │    │            └ <WSGIRequest: GET '/redoc/'>
+               │           │    └ <function convert_exception_to_response.<locals>.inner at 0x000001F5AE505080>
+               │           └ <MessageMiddleware get_response=convert_exception_to_response.<locals>.inner>
+               └ None
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               │            └ <WSGIRequest: GET '/redoc/'>
+               └ <XFrameOptionsMiddleware get_response=BaseHandler._get_response>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\utils\deprecation.py", line 120, in __call__
+    response = response or self.get_response(request)
+               │           │    │            └ <WSGIRequest: GET '/redoc/'>
+               │           │    └ <function BaseHandler._get_response at 0x000001F5AE504680>
+               │           └ <XFrameOptionsMiddleware get_response=BaseHandler._get_response>
+               └ None
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               │            └ <WSGIRequest: GET '/redoc/'>
+               └ <bound method BaseHandler._get_response of <django.core.handlers.wsgi.WSGIHandler object at 0x000001F5AE423770>>
+> File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               │        └ <function SimpleTemplateResponse.render at 0x000001F5AE5058A0>
+               └ <Response status_code=200, "text/html; charset=utf-8">
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+    │    │         │    └ <property object at 0x000001F5AFB63CE0>
+    │    │         └ <Response status_code=200, "text/html; charset=utf-8">
+    │    └ <property object at 0x000001F5AE500EF0>
+    └ <Response status_code=200, "text/html; charset=utf-8">
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\rest_framework\response.py", line 74, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+          │        │      │    │     │                    └ {'view': <drf_yasg.views.get_schema_view.<locals>.SchemaView object at 0x000001F5B04CED50>, 'args': (), 'kwargs': {}, 'reques...
+          │        │      │    │     └ 'text/html'
+          │        │      │    └ Swagger({'swagger': '2.0', 'info': Info({'title': 'Trendify E-commerce API', 'description': 'Documentação da API do E-commerc...
+          │        │      └ <Response status_code=200, "text/html; charset=utf-8">
+          │        └ <function _UIRenderer.render at 0x000001F5AFDF96C0>
+          └ <drf_yasg.renderers.ReDocRenderer object at 0x000001F5B04CF890>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\drf_yasg\renderers.py", line 93, in render
+    return render_to_string(
+           └ <function render_to_string at 0x000001F5AE0F2AC0>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               │            │                    └ None
+               │            └ 'drf-yasg/redoc.html'
+               └ <function get_template at 0x000001F5AE0F0F40>
+  File "C:\projectos\empresa\yhanko\ecomerce\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+          │                    │                    └ [TemplateDoesNotExist('drf-yasg/redoc.html')]
+          │                    └ 'drf-yasg/redoc.html'
+          └ <class 'django.template.exceptions.TemplateDoesNotExist'>
+
+django.template.exceptions.TemplateDoesNotExist: drf-yasg/redoc.html
