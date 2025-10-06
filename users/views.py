@@ -10,6 +10,12 @@ from users.services.user_service import UserService
 from users.services.auth_service import AuthService
 from users.infra.userRepository import UserRepository
 
+class AuthenticatedAPIView(APIView):
+    def dispatch(self, request, *args, **kwargs):
+        if getattr(request, "user_id", None) is None:
+            raise UnauthorizedError(safe_message="Autentication required", status_code=401, code="unauthorized")
+        return super().dispatch(request, *args, **kwargs)
+        
 class LoginView(APIView):
     def __init__(self, **kwargs: Any):
         super().__init__(**kwargs)
@@ -63,10 +69,7 @@ class LogoutView(APIView):
 
         return response
 
-
-
-
-class UserView(APIView):
+class UserView(AuthenticatedAPIView):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self.service = UserService(UserRepository())
@@ -115,15 +118,17 @@ class UserView(APIView):
         except Exception as e:
             raise DatabaseError(safe_message="Something went wrong on our side, please try again later, and if it persists, contact us", status_code=500, code="internal_server_error")
 
-    def put(self, request, id: str):
+    def put(self, request):
         try:
-            if id == None:
+            take_user_auth_by_id = request.user_id
+
+            if take_user_auth_by_id == None:
                 raise UnauthorizedError(safe_message="Not authorized to proceed with the operation", status_code=401, code="unauthorized")
             
-                user_id = self.service.get_user_by_id(id)
+            user_by_id = self.service.get_user_by_id(take_user_auth_by_id)
 
-                if user_id is None:
-                    raise NotFoundError(safe_message="User not found", status_code=404, code="not_found")
+            if user_by_id is None:
+                raise NotFoundError(safe_message="User not found", status_code=404, code="not_found")
             
             serializer = UserUpadateDataSerializer(data=request.data, partial=True)
 
@@ -133,7 +138,7 @@ class UserView(APIView):
             validated_data = cast(Dict[str, Any], serializer.validated_data)
 
             user = self.service.update_user_data(
-                id,
+                take_user_auth_by_id,
                 validated_data.get("name"),
                 validated_data.get("last_name"),
                 validated_data.get("email"),
@@ -152,12 +157,14 @@ class UserView(APIView):
         except Exception as e:
             raise DatabaseError(safe_message="Something went wrong on our side, please try again later, and if it persists, contact us", status_code=500, code="internal_server_error")
         
-    def delete(self, request, id: str):
+    def delete(self, request):
         try:
-            if not id:
+            take_user_auth_by_id = request.user_id
+
+            if not take_user_auth_by_id:
                 raise UnauthorizedError(safe_message="Not authorized to proceed with the operation", status_code=401, code="unauthorized")
 
-            userId = self.service.delete_user_by_id(id)
+            userId = self.service.delete_user_by_id(take_user_auth_by_id)
 
             if not userId:
                 raise NotFoundError(safe_message="user not found", status_code=404, code="not_found")
@@ -172,17 +179,19 @@ class UserView(APIView):
         except Exception as e:
             raise DatabaseError(safe_message="Something went wrong on our side, please try again later, and if it persists, contact us", status_code=500, code="internal_server_error")
 
-class SpecificUserView(APIView):
+class SpecificUserView(AuthenticatedAPIView):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self.service = UserService(UserRepository())
 
-    def get(self, request, id: str): 
+    def get(self, request): 
         try: 
-            if not id:
+            user_auth_by_id = request.user_id
+
+            if not user_auth_by_id:
                 raise UnauthorizedError(safe_message="Not authorized to proceed with the operation", status_code=401, code="unauthorized")
             
-            user = self.service.get_user_by_id(id) 
+            user = self.service.get_user_by_id(user_auth_by_id) 
 
             if not user :
                 raise NotFoundError(safe_message="User not found", status_code=404, code="not_found")
@@ -202,7 +211,7 @@ class SpecificUserView(APIView):
         except Exception as e:
             raise DatabaseError(safe_message="Something went wrong on our side, please try again later, and if it persists, contact us", status_code=500, code="internal_server_error")
 
-class PasswordView(APIView):
+class PasswordView(AuthenticatedAPIView):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self.service = UserService(UserRepository())
@@ -232,9 +241,11 @@ class PasswordView(APIView):
         except Exception as e:
             raise DatabaseError(safe_message="Something went wrong on our side, please try again later, and if it persists, contact us", status_code=500, code="internal_server_error")
 
-    def put(self, request, id:str):
+    def put(self, request):
         try:
-            if not id:
+            user_auth_by_id = request.user_id
+
+            if not user_auth_by_id:
                 raise UnauthorizedError(safe_message="Not authorized to proceed with the operation", status_code=401, code="unauthorized")
             
             serializer = PasswordUpdateSerializer(data=request.data)
@@ -245,7 +256,7 @@ class PasswordView(APIView):
             validated_data = cast(Dict[str, Any], serializer.validated_data)
 
             user = self.service.update_user_password(
-                id,
+                user_auth_by_id,
                 validated_data["old_password"],
                 validated_data["new_password"],
             )

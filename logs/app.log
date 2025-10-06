@@ -467,3 +467,4 @@ Traceback (most recent call last):
 
 TypeError: unsupported type for timedelta seconds component: str
 2025-10-05 14:39:08.089 | INFO     | users.views:post:51 - User logged in: romeucajamba@gmail.com
+2025-10-05 14:41:40.804 | INFO     | users.views:post:51 - User logged in: romeucajamba@gmail.com
