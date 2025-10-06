@@ -2,6 +2,8 @@ from typing import Any, Dict, cast
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 from users.serializers import UserSerializer, PasswordUpdateSerializer, PasswordRecoverySerializer, ConfirmAccountSerializer, UserUpadateDataSerializer
 from users.helpers.logs.logger import logger
 from users.helpers.errors.error import BadRequestError, ConflictError, NotFoundError, UnauthorizedError, DatabaseError,AppError
@@ -20,6 +22,37 @@ class LoginView(APIView):
     def __init__(self, **kwargs: Any):
         super().__init__(**kwargs)
         self.auth_service = AuthService(UserRepository())
+
+    @swagger_auto_schema(
+        operation_description="User login and JWT token generation",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            required=["email", "password"],
+            properties={
+                "email": openapi.Schema(type=openapi.TYPE_STRING, format="email"),
+                "password": openapi.Schema(type=openapi.TYPE_STRING, format="password"),
+            },
+        ),
+        responses={
+            202: openapi.Response(
+                description="Successful login",
+                examples={
+                    "application/json": {
+                        "access_token": "jwt_token_here",
+                        "token_type": "bearer",
+                        "user": {
+                            "id": "uuid",
+                            "name": "Romeu",
+                            "last_name": "Cajamba",
+                            "email": "romeu@example.com"
+                        }
+                    }
+                },
+            ),
+            400: "E-mail or password not provided",
+            401: "Invalid credentials",
+        },
+    )    
 
     def post(self, request):
         data = request.data
