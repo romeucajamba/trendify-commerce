@@ -44,7 +44,7 @@ class LoginView(APIView):
                             "id": "uuid",
                             "name": "Romeu",
                             "last_name": "Cajamba",
-                            "email": "romeu@example.com"
+                            "email": "example@gmail.com"
                         }
                     }
                 },
@@ -122,6 +122,38 @@ class UserSignUpView(APIView):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self.service = UserService(UserRepository())
+    
+    @swagger_auto_schema(
+            operation_description="Register a new user in the system",
+            request_body=openapi.Schema(
+                type=openapi.TYPE_OBJECT,
+                required=["name", "last_name", "email", "password", "confirm_password"],
+                properties={
+                    "name":openapi.Schema(type=openapi.TYPE_STRING, example="Romeu"),
+                    "last_name": openapi.Schema(type=openapi.TYPE_STRING, example="Cajamba"),
+                    "email": openapi.Schema(type=openapi.TYPE_STRING, format="email", example="example@gmail.com"),
+                    "password": openapi.Schema(type=openapi.TYPE_STRING, format="password", example="strongP@ssword122&"),
+                    "confirm_password": openapi.Schema(type=openapi.TYPE_STRING, format="password", example="strongP@ssword122&")
+                },
+            ),
+            responses={
+                201: openapi.Response(
+                    description="User sucessfully registered!",
+                    examples={
+                        "application/json":{
+                            "id": "uuid",
+                            "name": "Romeu",
+                            "last_name": "Cajamba",
+                            "email": "example@gmail.com"
+                        },
+                    },
+                ),
+                400: "Inavlid input data",
+                409:"E-mail or user already exists",
+                500: "Internal server error",
+            },
+            tags=["Authentication"]
+    )
 
     def post(self, request):
         try:
@@ -157,7 +189,29 @@ class UserView(AuthenticatedAPIView):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self.service = UserService(UserRepository())
-        
+    
+    @swagger_auto_schema(
+            operation_description="Retrieve a list of all registered users (requires authentication).",
+            responses={
+                200: openapi.Response(
+                    description="List o users retrieved sucessfully",
+                    examples=
+                    {
+                        "application/json":[
+                            {
+                                "id": "uuid",
+                                "name": "Romeu",
+                                "last_name": "Cajamba",
+                                "email": "example@gmail.com"
+                            },
+                        ],
+                    },
+                ),
+            401: "Unauthorized acess",
+            500: "Internal server error",
+        },
+        tags=["User Management"]
+    )
     def get(self, request):
         try:
 
@@ -172,6 +226,36 @@ class UserView(AuthenticatedAPIView):
 
         except Exception as e:
             raise DatabaseError(safe_message="Something went wrong on our side, please try again later, and if it persists, contact us", status_code=500, code="internal_server_error")
+        
+    @swagger_auto_schema(
+            operation_description="Update the authenticated user's profile",
+            request_body=openapi.Schema(
+                type=openapi.TYPE_OBJECT,
+                properties={
+                    "name": openapi.Schema(type=openapi.TYPE_STRING, example="Romeu"),
+                    "last_name": openapi.Schema(type=openapi.TYPE_STRING, example="Cajamba"),
+                    "email": openapi.Schema(type=openapi.TYPE_STRING, format="email", example="romeucajambaexample@gmail.com")
+                }
+            ),
+            responses={
+                200: openapi.Response(
+                    description="User data sucessfully updated",
+                    examples={
+                        "application/json":{
+                            "id": "uuid",
+                            "name": "Romeu",
+                            "last_name": "Cajamba",
+                            "email": "reomeuexample12@gmail.com"
+                        },
+                    },
+                ),
+                400: "Invalid data provided",
+                401: "Unautorized acess",
+                404: "User not found",
+                500: "Internal server error"
+            },
+            tags=["User Management"],
+    )
 
     def put(self, request):
         try:
@@ -211,6 +295,17 @@ class UserView(AuthenticatedAPIView):
             raise
         except Exception as e:
             raise DatabaseError(safe_message="Something went wrong on our side, please try again later, and if it persists, contact us", status_code=500, code="internal_server_error")
+    
+    @swagger_auto_schema(
+            operation_description="Delete the a user account",
+            responses={
+                204: openapi.Response(description="User deleted sucessfully"),
+                401: "Unauthorized acess",
+                404: "User not found",
+                500: "Internal server error"
+            },
+            tags=["User Management"]
+    )
         
     def delete(self, request):
         try:
@@ -238,6 +333,29 @@ class UserProfileView(AuthenticatedAPIView):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self.service = UserService(UserRepository())
+
+    @swagger_auto_schema(
+        operation_description="Retrieve the authenticated user's profile (requires authentication)",
+        responses={
+            200: openapi.Response(
+                description="Successfully retrieved user profile",
+                examples={
+                    "application/json":{
+                        "id": "uuid",
+                        "name": "Romeu",
+                        "last_name": "Cajamba",
+                        "email": "romeuexample@gmail.com",
+                        "created_at": "2025-12-12T10:00:00Z",
+                        "updated_at": "2025-12-12T10:00:00Z"
+                    },
+                },
+            ),
+            401: "Unauthorized acess",
+            404: "User not found",
+            500: "Internal server error",
+        },
+        tags=["User Management"],
+    )
 
     def get(self, request): 
         try: 
@@ -270,6 +388,38 @@ class RecoveryPasswordView(APIView):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self.service = UserService(UserRepository())
+    
+    @swagger_auto_schema(
+        operation_description="Allows a user to reset their password using registered email",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            required=["email", "password", "confirm_password"],
+            properties={
+                "email": openapi.Schema(type=openapi.TYPE_STRING, format="email", description="The user's registered email address"),
+                "password": openapi.Schema(type=openapi.TYPE_STRING, format="password", description="The new password to set for the user account"),
+                "confirm_password": openapi.Schema(type=openapi.TYPE_STRING, format="confirm_password", description="The same password"),
+            },
+        ),
+        responses={
+            200: openapi.Response(
+                description="Password sucessfully updated",
+                examples={
+                    "application/json":{
+                        "id": "uuid",
+                        "name": "Romeu",
+                        "last_name": "Cajamba",
+                        "email": "romeuexample@gmail.com",
+                        "created_at": "2025-10-06T10:00:00Z",
+                        "updated_at": "2025-10-06T10:10:00Z"
+                    },
+                },
+            ),
+            400: "Ivalid input data",
+            404: "User not found",
+            500: "Internal server error"
+        },
+        tags=["Authentication"]
+    )
 
     def post(self, request):
         try:
@@ -300,6 +450,51 @@ class PasswordView(AuthenticatedAPIView):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self.service = UserService(UserRepository())
+
+    @swagger_auto_schema(
+        operation_description="Allows an authenticated user to update their password by providing the current password and a new one.",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            required=["old_password", "new_password", "confirm_password"],
+            properties={
+                "old_password": openapi.Schema(
+                    type=openapi.TYPE_STRING,
+                    format="password",
+                    description="The user's current password."
+                ),
+                "new_password": openapi.Schema(
+                    type=openapi.TYPE_STRING,
+                    format="password",
+                    description="The new password the user wants to set."
+                ),
+                  "confirm_password": openapi.Schema(
+                    type=openapi.TYPE_STRING,
+                    format="password",
+                    description="The new password the user wants to set."
+                ),
+            },
+        ),
+        responses={
+            200: openapi.Response(
+                description="Password successfully updated.",
+                examples={
+                    "application/json": {
+                        "id": "uuid",
+                        "name": "Romeu",
+                        "last_name": "Cajamba",
+                        "email": "romeu@example.com",
+                        "created_at": "2025-10-06T10:00:00Z",
+                        "updated_at": "2025-10-06T10:20:00Z"
+                    }
+                },
+            ),
+            400: "Invalid input data.",
+            401: "Unauthorized access. Token missing or invalid.",
+            404: "User not found.",
+            500: "Internal server error.",
+        },
+        tags=["Authentication"],
+    )
 
     def put(self, request):
         try:
@@ -337,6 +532,40 @@ class ConfirmAccountView(APIView):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self.service = UserService(UserRepository())
+
+    @swagger_auto_schema(
+        operation_description="Confirm a user account using a verification code sent via email",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            required=["email", "code"],
+            properties={
+                "email": openapi.Schema(
+                    type=openapi.TYPE_STRING,
+                    format="email",
+                    description="The email address used to register the account"
+                ),
+                "code": openapi.Schema(
+                    type=openapi.TYPE_STRING,
+                    maxLength=6,
+                    description="The 6-digit verification code sent to the user's email"
+                ),
+            },
+        ),
+        responses={
+            200: openapi.Response(
+                description="Account sucessfully confirmed",
+                examples={
+                    "application/json":{
+                        "message": "Account sucessfully confirmed"
+                    },
+                },
+            ),
+            400: "Ivalid input data",
+            404: "User not found or invalid confirm code",
+            500: "Internal server error"
+        },
+        tags=["Authentication"]
+    )
 
     def post(self, request):
         serializer = ConfirmAccountSerializer(data=request.data)
