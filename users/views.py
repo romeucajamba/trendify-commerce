@@ -92,6 +92,22 @@ class LoginView(APIView):
         return response
     
 class LogoutView(APIView):
+    @swagger_auto_schema(
+            operation_description="Logs out the user by deleting the JWT token from cookies.",
+            responses={
+                200: openapi.Response(
+                    description="Sucessful logout",
+                    examples={
+                        "application/json":{
+                            "message": "Logged out"
+                        }
+                    }
+                ),
+                401: "User not autenticated or already logged out"
+            },
+            tags=["Authentication"]
+    )
+    
     def post(self, request):
         #AO fazer o loggout ele limpa os cookie
         response = Response({"message": "Logged out"}, status=status.HTTP_200_OK)
@@ -102,7 +118,7 @@ class LogoutView(APIView):
 
         return response
 
-class UserView(AuthenticatedAPIView):
+class UserSignUpView(APIView):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self.service = UserService(UserRepository())
@@ -135,6 +151,12 @@ class UserView(AuthenticatedAPIView):
             raise
         except Exception as e:
             raise DatabaseError(safe_message="Something went wrong on our side, please try again later, and if it persists, contact us", status_code=500, code="internal_server_error")
+
+
+class UserView(AuthenticatedAPIView):
+    def __init__(self, **kwargs: Any) -> None:
+        super().__init__(**kwargs)
+        self.service = UserService(UserRepository())
         
     def get(self, request):
         try:
@@ -212,7 +234,7 @@ class UserView(AuthenticatedAPIView):
         except Exception as e:
             raise DatabaseError(safe_message="Something went wrong on our side, please try again later, and if it persists, contact us", status_code=500, code="internal_server_error")
 
-class SpecificUserView(AuthenticatedAPIView):
+class UserProfileView(AuthenticatedAPIView):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self.service = UserService(UserRepository())
@@ -244,7 +266,7 @@ class SpecificUserView(AuthenticatedAPIView):
         except Exception as e:
             raise DatabaseError(safe_message="Something went wrong on our side, please try again later, and if it persists, contact us", status_code=500, code="internal_server_error")
 
-class PasswordView(AuthenticatedAPIView):
+class RecoveryPasswordView(APIView):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self.service = UserService(UserRepository())
@@ -273,6 +295,11 @@ class PasswordView(AuthenticatedAPIView):
             raise
         except Exception as e:
             raise DatabaseError(safe_message="Something went wrong on our side, please try again later, and if it persists, contact us", status_code=500, code="internal_server_error")
+
+class PasswordView(AuthenticatedAPIView):
+    def __init__(self, **kwargs: Any) -> None:
+        super().__init__(**kwargs)
+        self.service = UserService(UserRepository())
 
     def put(self, request):
         try:
