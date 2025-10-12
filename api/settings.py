@@ -59,6 +59,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'users.middleware.auth_middleware.AuthMiddleware',
     'users.helpers.errors.global_handler_error.GlobalExceptionMiddleware',
+    'store.helpers.errors.global_handler_error.GlobalExceptionMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

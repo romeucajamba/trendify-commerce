@@ -1,4 +1,4 @@
-from typing import Optional, List, UserIdType
+from typing import Optional, List
 from store.models import Item, Category, CartItem, Favorite, Purchase
 from users.domain.entities.user_entity import UserEntity
 

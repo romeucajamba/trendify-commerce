@@ -105,7 +105,7 @@ class StoreService:
             payment_method=payment_method,
             payment_proof=payment_proof_file,
             first_name=shipping_data["first_name"],
-            las_name=shipping_data["last_name"],
+            last_name=shipping_data["last_name"],
             city=shipping_data["city"],
             country=shipping_data["country"],
             street_address=shipping_data["street_address"],
