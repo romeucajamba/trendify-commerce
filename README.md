@@ -159,7 +159,7 @@ python manage.py runserver
 * **Erros customizados** para não expor detalhes internos
 * Proteção contra **SQL Injection** (ORM do Django + validações)
 * **Logs estruturados** via Loguru
-* Futuro: JWT Authentication + Refresh Token
+* **JWT** Authentication + Refresh Token
 
 ## 📜 Logs
 
@@ -192,10 +192,8 @@ python manage.py runserver
 ---
 
 ## ✅ Próximos Passos
-* [ ] Implementar `favorites`, `clothes`, `cart`
 * [ ] Testes unitários
 * [ ] CI/CD (GitHub Actions)
-* [ ] Documentação com Swagger / DRF Spectacular
 
 ---
 
