@@ -38,7 +38,7 @@ class StoreRepository:
 
         return fav
     
-    def remove_favorite(self, user, user, item) -> bool:
+    def remove_favorite(self, user, item) -> bool:
         deleted, _ = Favorite.objects.filter(user=user, item=item).delete()
         
         return deleted > 0

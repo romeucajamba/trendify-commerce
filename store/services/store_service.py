@@ -1,7 +1,6 @@
 from typing import Optional, List
 from decimal import Decimal
-from django.shortcuts import get_object_or_404
-from ..infra.respository import StoreRepository
+from store.infra.respository import StoreRepository
 from store.models import Item, Purchase
 from users.domain.entities.user_entity import UserEntity
 from store.helpers.payment_gateway import PaymentGateway
@@ -55,3 +54,65 @@ class StoreService:
             return False
         return self.store_repository.remove_favorite(user=user, item=item)
         
+    def list_favorites(self, user):
+        return self.store_repository.list_favorites(user=user)
+    
+    #cart
+    def add_to_cart(self, user, item_id: str, quantity: int):
+        item = self.store_repository.get_item_by_id(id=item_id)
+
+        if not item:
+            return None
+        
+        if item.stock < quantity:
+            raise ValueError("Not enough stock")
+        
+        return self.store_repository.add_cart_item(user=user, item=item_id, quantity=quantity)
+    
+    def remove_from_cart(self, user, item_id: str):
+        item = self.store_repository.get_item_by_id(id=item_id)
+
+        if not item:
+            return False
+        return self.store_repository.remove_cart_item(user=user, item=item_id)
+    
+    def list_cart(self, user):
+        return self.store_repository.list_cart(user=user)
+    
+    def purchase_item(self, user, item_id: str, quantity: int, payment_method:str, payment_proof_file, shipping_data: dict) -> Optional[Purchase]:
+        item = self.store_repository.get_item_by_id(id=item_id)
+
+        if not item:
+            return None
+        
+        if item.stock < quantity:
+            raise ValueError("Not enough stock")
+            
+        total = item.price * Decimal(quantity)
+
+        amount = float(total)
+
+        payment_simulator = PaymentGateway.process_payment(method=payment_method, amount=amount)
+
+        if not payment_simulator:
+            raise ValueError("Payment failed")
+        
+        purchase = Purchase(
+            user=user,
+            item=item,
+            quantity=quantity,
+            total_price=total,
+            payment_method=payment_method,
+            payment_proof=payment_proof_file,
+            first_name=shipping_data["first_name"],
+            las_name=shipping_data["last_name"],
+            city=shipping_data["city"],
+            country=shipping_data["country"],
+            street_address=shipping_data["street_address"],
+            house_number=shipping_data["house_number"],
+            phone=shipping_data["phone"],
+            email=shipping_data["email"],
+        )
+
+        return self.store_repository.create_purchase(purchase)
+
