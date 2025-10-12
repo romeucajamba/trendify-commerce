@@ -56,7 +56,7 @@ class Purchase(models.Model):
     payment_method = models.CharField(max_length=30, choices=PAYMENT_METHODS)
     payment_proof = models.FileField(upload_to="payment_proofs/", null=True, blank=True)
     first_name = models.CharField(max_length=100)
-    las_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
     street_address = models.CharField(max_length=255)

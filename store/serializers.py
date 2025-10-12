@@ -13,7 +13,7 @@ class ItemSerializer(serializers.ModelSerializer):
         model = Item
         fields = ["id", "name", "description", "price", "category", "stock", "created_at", "updated_at"]
 
-class ItemCreateUpadteSerializer(serializers.ModelSerializer):
+class ItemCreateUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
         fields = ["name", "description", "price", "category", "stock", "image"]
@@ -25,7 +25,7 @@ class FavoriteSerializer(serializers.ModelSerializer):
         model = Favorite
         fields = ["id", "item", "created_at"]
 
-class CratItemerializer(serializers.ModelSerializer):
+class CartItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartItem
         fields = ["id", "item", "quantity", "added_at"]
