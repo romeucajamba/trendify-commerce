@@ -15,7 +15,7 @@ class Item(models.Model):
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     name = models.CharField(max_length=150)
     description =models.TextField(blank=True, null=True)
-    price = models.DecimalField(max_length=10, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name="items")
     stock = models.PositiveBigIntegerField(default=0)
     image = models.ImageField(upload_to="items/", null=True, blank=True)
