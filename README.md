@@ -197,13 +197,6 @@ pytest store/tests/test_store_service.py -v
   * `helpers/errors` → exceções globais
   * `helpers/loggers` → logging
 
----
-
-## ✅ Próximos Passos
-* [ ] CI/CD (GitHub Actions)
-
----
-
 ## 📝 Licença
 
 Este projeto foi criado por Romeu Cajamba.
