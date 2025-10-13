@@ -30,9 +30,15 @@ class CartItemSerializer(serializers.ModelSerializer):
         model = CartItem
         fields = ["id", "item", "quantity", "added_at"]
 
-class CartAddSerializer(serializers.ModelSerializer):
-    item_id = serializers.UUIDField()
-    quatity = serializers.IntegerField(min_value=1)
+class CartAddSerializer(serializers.Serializer):
+    item_id = serializers.UUIDField(required=True)
+    quantity = serializers.IntegerField(min_value=1, required=True)
+
+    def validate(self, data):
+        if data["quantity"] < 1:
+            raise serializers.ValidationError({"quantity": "Quantity must be at least 1"})
+        return data
+
 
 
 class PurchaseSerializer(serializers.ModelSerializer):
