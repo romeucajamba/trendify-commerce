@@ -115,6 +115,14 @@ docker-compose up -d
 ```bash
 python manage.py migrate
 python manage.py runserver
+pytest store/tests/test_store_service.py -v
+
+```
+### Os testes unitários
+
+```bash
+pytest store/tests/test_store_service.py -v
+
 ```
 
 ---
@@ -192,7 +200,6 @@ python manage.py runserver
 ---
 
 ## ✅ Próximos Passos
-* [ ] Testes unitários
 * [ ] CI/CD (GitHub Actions)
 
 ---
