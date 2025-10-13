@@ -1,0 +1,29 @@
+name: Build Docker Image
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Clonar o repositório
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Configurar Docker (opcional, geralmente já vem instalado)
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # Build da imagem Docker
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .                 # Diretório do Dockerfile
+          push: false                # NÃO enviar para registry
+          tags: project_ecomerce:latest  # Nome da imagem local
