@@ -126,7 +126,10 @@ pytest store/tests/test_store_service.py -v
 pytest store/tests/test_store_service.py -v
 
 ```
-
+## Documentação Swagger
+```bash
+  http://localhost:8000/swagger/
+```
 ---
 
 ## 🛠️ Principais Apps
