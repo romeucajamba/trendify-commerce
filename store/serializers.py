@@ -68,3 +68,16 @@ class PurchaseSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({"quantity": "Quantity must be at last 1"})
         return data
 
+class PurchaseRequestSerializer(serializers.Serializer):
+    item = serializers.CharField()
+    quantity = serializers.IntegerField()
+    payment_method = serializers.ChoiceField(choices=["MULTICAIXA_EXPESS", "ATM", "REFERENCE"])
+    payment_proof = serializers.FileField(required=False)
+    first_name = serializers.CharField()
+    last_name = serializers.CharField()
+    city = serializers.CharField()
+    country = serializers.CharField()
+    street_address = serializers.CharField()
+    house_number = serializers.CharField()
+    phone = serializers.CharField()
+    email = serializers.EmailField()

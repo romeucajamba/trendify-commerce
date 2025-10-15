@@ -1,4 +1,4 @@
-from rest_framework import status, generics, permissions
+from rest_framework import status, permissions
 from rest_framework.response import Response
 from typing import Any, Dict, cast
 from rest_framework.views import APIView
@@ -6,10 +6,11 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from store.services.store_service import StoreService
+from store.services.cache_service import ProductCacheService
 from store.serializers import (
     ItemSerializer, ItemCreateUpdateSerializer,
     FavoriteSerializer, CartItemSerializer, 
-    CartAddSerializer, PurchaseSerializer
+    CartAddSerializer, PurchaseSerializer, PurchaseRequestSerializer
 )
 from store.models import Item, Favorite, CartItem, Purchase
 from store.helpers.errors.error import ( DatabaseError, NotFoundError, UnauthorizedError, BadRequestError, AppError) 
@@ -51,9 +52,11 @@ class ItemListCreateView(APIView):
         operation_summary="Create a new store item",
         operation_description="Create a new store item (Requires authentication).",
         request_body=ItemCreateUpdateSerializer,
+        manual_parameters=[],
+        consumes=["multipart/form-data"],
         responses={
             201: ItemSerializer(),
-            400: "Ivalid input data",
+            400: "Invalid input data",
             401:"Unauthorized",
             500: "Internal server error"
         },
@@ -72,6 +75,18 @@ class ItemListCreateView(APIView):
         
         except AppError: raise
         except Exception: raise DatabaseError(safe_message="An unexpected error occurred.", code="internal_error", status_code=500)
+
+class FeaturedItemView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    @swagger_auto_schema(
+        operation_summary="Get featured items",
+        responses={200: ItemSerializer(many=True)},
+        tags=["Store - Items"]
+    )
+    def get(self, request):
+        products = ProductCacheService.get_featured_products()
+        return Response(products, status=status.HTTP_200_OK)
 
 class ItemDetailView(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -99,6 +114,8 @@ class ItemDetailView(APIView):
     @swagger_auto_schema(
         operation_summary="Update an item",
         request_body=ItemCreateUpdateSerializer,
+        manual_parameters=[],
+        consumes=["multipart/form-data"],
         responses={
             200: ItemSerializer(),
             400: "Invalid data",
@@ -310,26 +327,7 @@ class PurchaseView(APIView):
     @swagger_auto_schema(
         operation_summary="Purchase an item",
         operation_description="Complete a purchase for a single item. Sends shipping data and optional payment proof (file).",
-        request_body=openapi.Schema(
-            type=openapi.TYPE_OBJECT,
-            required=["item", "quantity", "payment_method", "first_name", "last_name", "city", "country", "street_address", "house_number", "phone", "email"],
-            properties={
-                "item": openapi.Schema(type=openapi.TYPE_OBJECT, properties={
-                    "id": openapi.Schema(type=openapi.TYPE_STRING, description="UUID of item")
-                }),
-                "quantity": openapi.Schema(type=openapi.TYPE_INTEGER, example=1),
-                "payment_method": openapi.Schema(type=openapi.TYPE_STRING, enum=["MULTICAIXA_EXPESS","ATM","REFERENCE"]),
-                "payment_proof": openapi.Schema(type=openapi.TYPE_FILE, description="Payment proof (image/pdf)"),
-                "first_name": openapi.Schema(type=openapi.TYPE_STRING),
-                "last_name": openapi.Schema(type=openapi.TYPE_STRING),
-                "city": openapi.Schema(type=openapi.TYPE_STRING),
-                "country": openapi.Schema(type=openapi.TYPE_STRING),
-                "street_address": openapi.Schema(type=openapi.TYPE_STRING),
-                "house_number": openapi.Schema(type=openapi.TYPE_STRING),
-                "phone": openapi.Schema(type=openapi.TYPE_STRING),
-                "email": openapi.Schema(type=openapi.TYPE_STRING, format="email"),
-            }
-        ),
+        request_body=PurchaseRequestSerializer,
         responses={
             201: PurchaseSerializer(),
             400: "Invalid input or payment failed",

@@ -38,7 +38,7 @@ class CartItem(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="cart_items")
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
-    quatity = models.PositiveBigIntegerField(default=1)
+    quantity = models.PositiveBigIntegerField(default=1)
     added_at = models.DateTimeField(auto_now_add=True)
 
 class Purchase(models.Model):
