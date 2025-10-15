@@ -61,7 +61,7 @@ ecommerce/
 
 ### 1. Clone o repositório
 ```bash
-git clone https://github.com/seu-repositorio/ecommerce-api.git
+git clone https://github.com/romeucajamba/trendify-commerce.git
 cd ecommerce-api
 ````
 
@@ -102,12 +102,14 @@ EMAIL_USE_SSL=
 EMAIL_HOST_USER=
 EMAIL_HOST_PASSWORD=
 DEFAULT_FROM_EMAIL=
+REDIS_URL=
 ```
 
 ### 5. Suba o banco com Docker
 
 ```bash
 docker-compose up -d
+docker compose -f docker-compose-redis.yml up -d
 ```
 
 ### 6. Rode as migrações e servidor
@@ -124,7 +126,10 @@ pytest store/tests/test_store_service.py -v
 pytest store/tests/test_store_service.py -v
 
 ```
-
+## Documentação Swagger
+```bash
+  http://localhost:8000/swagger/
+```
 ---
 
 ## 🛠️ Principais Apps
